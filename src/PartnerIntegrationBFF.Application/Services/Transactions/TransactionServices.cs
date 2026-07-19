@@ -1,5 +1,4 @@
 using PartnerIntegrationBFF.Application.DTOs.Transactions;
-using PartnerIntegrationBFF.Application.Validators.Transactions;
 using FluentValidation;
 using PartnerIntegrationBFF.Application.Interfaces;
 
@@ -7,11 +6,11 @@ namespace PartnerIntegrationBFF.Application.Services.Transactions;
 
 public class TransactionServices : ITransactionService
 {
-  private readonly CreateTransactionValidator _validator;
+  private readonly IValidator<TransactionRequest> _validator;
   private readonly IPartnerVerificationClient _partnerVerificationClient;
   private readonly ITransactionQueuePublisher _transactionQueuePublisher;
 
-  public TransactionServices(CreateTransactionValidator validator, IPartnerVerificationClient partnerVerificationClient, ITransactionQueuePublisher transactionQueuePublisher)
+  public TransactionServices(IValidator<TransactionRequest> validator, IPartnerVerificationClient partnerVerificationClient, ITransactionQueuePublisher transactionQueuePublisher)
   {
     _validator = validator;
     _partnerVerificationClient = partnerVerificationClient;
