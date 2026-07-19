@@ -18,9 +18,9 @@ public class TransactionControllers : ControllerBase
   }
 
   [HttpPost]
-  public async Task<IActionResult> CreateTransaction([FromBody] TransactionRequest request, CancellationToken cancellationToken)
+  public async Task<IActionResult> CreateTransaction([FromBody] CreateTransactionRequest request, CancellationToken cancellationToken)
   {
-    var result = await _transactionService.CreateTransaction(request, cancellationToken);
+    var result = await _transactionService.CreateTransactionAsync(request, cancellationToken);
     return Ok(result);
   }
 }

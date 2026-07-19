@@ -14,7 +14,7 @@ public class CreateTransactionValidatorTests
         new object[] { DateTimeOffset.UtcNow.AddSeconds(1) },
     };
 
-  private static TransactionRequest ValidRequest() => new(
+  private static CreateTransactionRequest ValidRequest() => new(
       PartnerId: "P-1001",
       TransactionReference: "TXN-99823",
       Amount: 250.00m,
@@ -39,7 +39,7 @@ public class CreateTransactionValidatorTests
     var result = await _validator.ValidateAsync(request);
 
     Assert.False(result.IsValid);
-    Assert.Contains(result.Errors, e => e.PropertyName == nameof(TransactionRequest.PartnerId));
+    Assert.Contains(result.Errors, e => e.PropertyName == nameof(CreateTransactionRequest.PartnerId));
   }
 
   [Theory]
@@ -52,7 +52,7 @@ public class CreateTransactionValidatorTests
     var result = await _validator.ValidateAsync(request);
 
     Assert.False(result.IsValid);
-    Assert.Contains(result.Errors, e => e.PropertyName == nameof(TransactionRequest.TransactionReference));
+    Assert.Contains(result.Errors, e => e.PropertyName == nameof(CreateTransactionRequest.TransactionReference));
   }
 
 
@@ -66,7 +66,7 @@ public class CreateTransactionValidatorTests
     var result = await _validator.ValidateAsync(request);
 
     Assert.False(result.IsValid);
-    Assert.Contains(result.Errors, e => e.PropertyName == nameof(TransactionRequest.Amount));
+    Assert.Contains(result.Errors, e => e.PropertyName == nameof(CreateTransactionRequest.Amount));
   }
 
   [Theory]
@@ -80,7 +80,7 @@ public class CreateTransactionValidatorTests
     var result = await _validator.ValidateAsync(request);
 
     Assert.False(result.IsValid);
-    Assert.Contains(result.Errors, e => e.PropertyName == nameof(TransactionRequest.Currency));
+    Assert.Contains(result.Errors, e => e.PropertyName == nameof(CreateTransactionRequest.Currency));
   }
 
   [Theory]
@@ -92,6 +92,6 @@ public class CreateTransactionValidatorTests
     var result = await _validator.ValidateAsync(request);
 
     Assert.False(result.IsValid);
-    Assert.Contains(result.Errors, e => e.PropertyName == nameof(TransactionRequest.Timestamp));
+    Assert.Contains(result.Errors, e => e.PropertyName == nameof(CreateTransactionRequest.Timestamp));
   }
 }

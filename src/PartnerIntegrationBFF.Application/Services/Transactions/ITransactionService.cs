@@ -4,5 +4,5 @@ namespace PartnerIntegrationBFF.Application.Services.Transactions;
 
 public interface ITransactionService
 {
-  Task<TransactionResponse> CreateTransaction(TransactionRequest request, CancellationToken cancellationToken);
+  Task<CreateTransactionResponse> CreateTransactionAsync(CreateTransactionRequest request, CancellationToken cancellationToken);
 }

@@ -16,7 +16,7 @@ public class RabbitMqPublisher : ITransactionQueuePublisher
     _option = option.Value;
   }
 
-  public async Task PublishTransactionAsync(TransactionMessage transactionMessage, CancellationToken cancellationToken)
+  public async Task PublishTransactionAsync(CreateTransactionMessage transactionMessage, CancellationToken cancellationToken)
   {
     var factory = new ConnectionFactory
     {

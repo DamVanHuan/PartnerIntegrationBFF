@@ -3,7 +3,7 @@ using PartnerIntegrationBFF.Application.DTOs.Transactions;
 
 namespace PartnerIntegrationBFF.Application.Validators.Transactions;
 
-public class CreateTransactionValidator : AbstractValidator<TransactionRequest>
+public class CreateTransactionValidator : AbstractValidator<CreateTransactionRequest>
 {
   private static readonly HashSet<string> ValidCurrencies = new(StringComparer.OrdinalIgnoreCase)
   {

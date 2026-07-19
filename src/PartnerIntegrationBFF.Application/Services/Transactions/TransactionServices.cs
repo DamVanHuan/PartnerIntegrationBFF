@@ -6,18 +6,18 @@ namespace PartnerIntegrationBFF.Application.Services.Transactions;
 
 public class TransactionServices : ITransactionService
 {
-  private readonly IValidator<TransactionRequest> _validator;
+  private readonly IValidator<CreateTransactionRequest> _validator;
   private readonly IPartnerVerificationClient _partnerVerificationClient;
   private readonly ITransactionQueuePublisher _transactionQueuePublisher;
 
-  public TransactionServices(IValidator<TransactionRequest> validator, IPartnerVerificationClient partnerVerificationClient, ITransactionQueuePublisher transactionQueuePublisher)
+  public TransactionServices(IValidator<CreateTransactionRequest> validator, IPartnerVerificationClient partnerVerificationClient, ITransactionQueuePublisher transactionQueuePublisher)
   {
     _validator = validator;
     _partnerVerificationClient = partnerVerificationClient;
     _transactionQueuePublisher = transactionQueuePublisher;
   }
 
-  public async Task<TransactionResponse> CreateTransaction(TransactionRequest request, CancellationToken cancellationToken)
+  public async Task<CreateTransactionResponse> CreateTransactionAsync(CreateTransactionRequest request, CancellationToken cancellationToken)
   {
     var validationResult = await _validator.ValidateAsync(request, cancellationToken);
     if (!validationResult.IsValid)
@@ -29,12 +29,12 @@ public class TransactionServices : ITransactionService
 
     if (!isPartnerValid)
     {
-      return new TransactionResponse(false, "Invalid partner ID");
+      return new CreateTransactionResponse(false, "Invalid partner ID");
     }
 
-    var message = new TransactionMessage(request.PartnerId, request.TransactionReference, request.Amount, request.Currency, request.Timestamp);
+    var message = new CreateTransactionMessage(request.PartnerId, request.TransactionReference, request.Amount, request.Currency, request.Timestamp);
     await _transactionQueuePublisher.PublishTransactionAsync(message, cancellationToken);
 
-    return new TransactionResponse(true, "Transaction created successfully");
+    return new CreateTransactionResponse(true, "Transaction created successfully");
   }
 }

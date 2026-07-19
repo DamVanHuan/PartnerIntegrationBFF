@@ -4,5 +4,5 @@ namespace PartnerIntegrationBFF.Application.Interfaces;
 
 public interface ITransactionQueuePublisher
 {
-  Task PublishTransactionAsync(TransactionMessage transactionMessage, CancellationToken cancellationToken);
+  Task PublishTransactionAsync(CreateTransactionMessage transactionMessage, CancellationToken cancellationToken);
 }
