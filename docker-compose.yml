@@ -11,10 +11,10 @@ services:
       PartnerApi__BaseUrl: "http://localhost:8080"
       RabbitMq__Host: "rabbitmq"
       RabbitMq__Port: "5672"
-      RabbitMq__Username: "guest"
-      RabbitMq__Password: "guest"
+      RabbitMq__Username: "${RABBITMQ_USERNAME}"
+      RabbitMq__Password: "${RABBITMQ_PASSWORD}"
       RabbitMq__QueueName: "partner-transactions"
-      Security__ApiKey: "my-secret-api-key"
+      Security__ApiKey: "${SECURITY_API_KEY}"
     depends_on:
       rabbitmq:
         condition: service_healthy
