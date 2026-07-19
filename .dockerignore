@@ -1,0 +1,35 @@
+# Build output
+**/bin/
+**/obj/
+**/out/
+
+# IDE / editor
+**/.vs/
+**/.vscode/
+**/.idea/
+
+# Git
+.git/
+.gitignore
+.gitattributes
+
+# Docker
+Dockerfile
+docker-compose*.yml
+.dockerignore
+
+# Docs
+*.md
+README.md
+
+# Test results
+**/TestResults/
+**/*.trx
+**/coverage.*
+
+# OS
+**/.DS_Store
+
+# Local secrets / config, should not go into image
+**/appsettings.Development.json
+**/*.user

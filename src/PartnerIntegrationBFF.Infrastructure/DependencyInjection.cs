@@ -12,7 +12,7 @@ public static class DependencyInjection
 {
   public static IServiceCollection AddInfrastructure(this IServiceCollection services, IConfiguration configuration)
   {
-    Console.WriteLine($"PartnerApi:BaseUrl = {configuration["PartnerApi:BaseUrl"]}");
+
     services.AddHttpClient<IPartnerVerificationClient, PartnerVerificationClient>(client =>
     {
       client.BaseAddress = new Uri(configuration["PartnerApi:BaseUrl"]);

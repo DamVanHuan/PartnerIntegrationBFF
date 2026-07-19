@@ -1,21 +1,31 @@
-version: "3.9"
-
 services:
-  rabbitmq:
-    image: rabbitmq:4-management
-    container_name: rabbitmq
-    restart: unless-stopped
-
+  api:
+    build:
+      context: .
+      dockerfile: Dockerfile
     ports:
-      - "5672:5672"
-      - "15672:15672"
-
+      - "8080:8080"
     environment:
-      RABBITMQ_DEFAULT_USER: guest
-      RABBITMQ_DEFAULT_PASS: guest
+      ASPNETCORE_ENVIRONMENT: Production
+      # Mock verification endpoint nằm ngay trong API này, nên gọi vào chính nó.
+      PartnerApi__BaseUrl: "http://localhost:8080"
+      RabbitMq__Host: "rabbitmq"
+      RabbitMq__Port: "5672"
+      RabbitMq__Username: "guest"
+      RabbitMq__Password: "guest"
+      RabbitMq__QueueName: "partner-transactions"
+      Security__ApiKey: "my-secret-api-key"
+    depends_on:
+      rabbitmq:
+        condition: service_healthy
 
-    volumes:
-      - rabbitmq_data:/var/lib/rabbitmq
-
-volumes:
-  rabbitmq_data:
+  rabbitmq:
+    image: rabbitmq:3.13-management
+    ports:
+      - "5672:5672"   # AMQP — port app dùng để publish/consume
+      - "15672:15672" # Management UI: http://localhost:15672 (guest/guest)
+    healthcheck:
+      test: ["CMD", "rabbitmq-diagnostics", "-q", "ping"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
